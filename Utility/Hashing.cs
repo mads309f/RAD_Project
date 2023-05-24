@@ -4,13 +4,17 @@ using System.Numerics;
 namespace Utility
 {
 
-
-    public static class Hashing
+    public interface IHashing
     {
+        ulong Hash(ulong x, int l);
+    }
+
+    public class MultiplyShift : IHashing
+    {
+        private const ulong a = 0x0afa661086a217dd;
         // a: Multiply-shift hashing
-        public static ulong MultiplyShift(ulong x, int l)
+        public ulong Hash(ulong x, int l)
         {
-            ulong a = 0x0afa661086a217dd;
             /*
                 Multiply-shift hashing som er parametriseret af a og l.
                 Hasfunktionen skal være: h(x) = (a * x) >> (64 − l),
@@ -19,8 +23,16 @@ namespace Utility
             return (a * x) >> (64 - l);
         }
 
+    }
+
+    public class MultiplyModPrime : IHashing
+    {
+        private readonly BigInteger a = BigInteger.Parse("556660067608673510658973370");
+        private readonly BigInteger b = BigInteger.Parse("22714816827324544532436935");
+        private readonly BigInteger p = BigInteger.Pow(2, 89) - 1;
+
         // b: Multiply-mod-prime hashing
-        public static ulong MultiplyModPrime(ulong x, int l)
+        public ulong Hash(ulong x, int l)
         {
             /*
                 Multiply-mod-prime hashing, hvor p = 2^89 −1, og som er parametriseret
@@ -29,9 +41,7 @@ namespace Utility
                 Hashfunktionen skal være: h(x) = ((a*x + b) mod p) mod 2^l
                 hvor a og b er uafhængige og uniformt tilfældige i [p] = {0, 1, ..., p−1}.x
             */
-            BigInteger a = BigInteger.Parse("556660067608673510658973370");
-            BigInteger b = BigInteger.Parse("22714816827324544532436935");
-            BigInteger p = BigInteger.Pow(2, 89) - 1;
+            
 
             BigInteger y = ((a * x + b) & p) + ((a * x + b) >> 89);  // (a * x + b) mod p
             if (y >= p) y -= p;
@@ -41,6 +51,5 @@ namespace Utility
 
             return (ulong)y;
         }
-
     }
 }
