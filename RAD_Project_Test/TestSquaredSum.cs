@@ -1,10 +1,7 @@
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace RAD_Project_Test
 {
-    public class Tests
+    public class TestSquaredSum
     {
         [SetUp]
         public void Setup()
@@ -12,6 +9,7 @@ namespace RAD_Project_Test
         }
 
         [Test]
+        // set up a test for the hash function with different values of l
 
         public void TestCalculateSum()
         {
