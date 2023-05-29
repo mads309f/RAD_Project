@@ -1,6 +1,7 @@
 using System.Diagnostics;
 
-namespace Utility {
+namespace Utility
+{
     public class TestHashFunction
     {
         public struct TestResults
@@ -12,6 +13,12 @@ namespace Utility {
         static readonly int TEST_TIMES = 100;
         static readonly int STREAM_SIZE = 1000000;
         static readonly int L = 8;
+
+        static public void RunAvgTests()
+        {
+            TestHashFunction.RunAvgTest(new MultiplyShift(), "multiply-shift");
+            TestHashFunction.RunAvgTest(new MultiplyModPrime(), "multiply-mod-prime");
+        }
 
         static public void RunAvgTest(IHashing hashFunction, string testName)
         {

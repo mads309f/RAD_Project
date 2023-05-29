@@ -18,18 +18,34 @@ using Utility;
 
 namespace Hashing
 {
+    public class StreamPair
+    {
+        public ulong x;
+        public int val;
+        public StreamPair(ulong x, int val)
+        {
+            this.x = x;
+            this.val = val;
+        }
+    }
     public class HashTable_chaining
     {
 
         private int l; // Size of the hash table
-        private List<KeyValuePair<ulong, int>>[] buckets; // Array of linked lists to store key-value pairs
+        private List<StreamPair>[] buckets; // Array of linked lists to store key-value pairs
         private IHashing hashFunction; // Delegate for the hash function
 
         public HashTable_chaining(int l, IHashing hashFunction)
         {
             this.l = l;
-            this.buckets = new List<KeyValuePair<ulong, int>>[l];
+            this.buckets = new List<StreamPair>[(1UL << l)];
             this.hashFunction = hashFunction;
+
+            // initialize the array
+            for (int i = 0; i < l; i++)
+            {
+                buckets[i] = new List<StreamPair>();
+            }
         }
 
         public int Get(ulong x)
@@ -39,9 +55,9 @@ namespace Hashing
             {
                 foreach (var pair in buckets[index])
                 {
-                    if (pair.Key == x)
+                    if (pair.x == x)
                     {
-                        return pair.Value;
+                        return pair.val;
                     }
                 }
             }
@@ -51,54 +67,57 @@ namespace Hashing
         public void Set(ulong x, int value)
         {
             ulong index = CalculateIndex(x);
-            if (buckets[index] == null)
+
+            // iterate through the list using foreach instead
+            foreach (var pair in buckets[index])
             {
-                buckets[index] = new List<KeyValuePair<ulong, int>>();
-            }
-            // Check if key already exists in the list
-            for (int i = 0; i < buckets[index].Count; i++)
-            {
-                if (buckets[index][i].Key == x)
+                if (pair.x == x)
                 {
-                    buckets[index][i] = new KeyValuePair<ulong, int>(x, value); // Update the value if key exists
+                    // pair = new KeyValuePair<ulong, int>(x, value);
+                    pair.val = value;
                     return;
                 }
             }
+
             // Key not found, add it to the list
-            buckets[index].Add(new KeyValuePair<ulong, int>(x, value));
+            buckets[index].Add(new StreamPair(x, value));
         }
 
         public void Increment(ulong x, int delta)
         {
             ulong index = CalculateIndex(x);
-            if (buckets[index] == null)
+            // Check if key already exists in the list
+            foreach (var pair in buckets[index])
             {
-                buckets[index] = new List<KeyValuePair<ulong, int>>();
-                buckets[index].Add(new KeyValuePair<ulong, int>(x, delta));
-            }
-            else
-            {
-                // Check if key already exists in the list
-                for (int i = 0; i < buckets[index].Count; i++)
+                if (pair.x == x)
                 {
-                    if (buckets[index][i].Key == x)
-                    {
-                        int updatedValue = buckets[index][i].Value + delta; // Calculate updated value
-                        buckets[index][i] = new KeyValuePair<ulong, int>(x, updatedValue); // Update the value if key exists
-                        return;
-                    }
+                    pair.val += delta; // Calculate updated value
+                    return;
                 }
-                // Key not found, add it to the list
-                buckets[index].Add(new KeyValuePair<ulong, int>(x, delta));
             }
+            // Key not found, add it to the list
+            buckets[index].Add(new StreamPair(x, delta));
         }
 
         private ulong CalculateIndex(ulong x)
         {
-            return hashFunction.Hash(x, l); // Calculate the index using the provided hash function
+            return hashFunction.Hash(x); // Calculate the index using the provided hash function
         }
+
+        public IEnumerable<int> GetValues()
+        {
+            for (int i = 0; i < buckets.Length; i++)
+            {
+                foreach (var bucket in buckets[i])
+                {
+                    yield return bucket.val;
+                }
+            }
+        }
+
+
     }
-    
+
 
 
 }

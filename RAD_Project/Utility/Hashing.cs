@@ -22,7 +22,6 @@ namespace Utility
             */
             return (a * x) >> (64 - l);
         }
-
     }
 
     public class MultiplyModPrime : IHashing
@@ -41,7 +40,7 @@ namespace Utility
                 Hashfunktionen skal være: h(x) = ((a*x + b) mod p) mod 2^l
                 hvor a og b er uafhængige og uniformt tilfældige i [p] = {0, 1, ..., p−1}.x
             */
-            
+
 
             BigInteger y = ((a * x + b) & p) + ((a * x + b) >> 89);  // (a * x + b) mod p
             if (y >= p) y -= p;
@@ -50,6 +49,53 @@ namespace Utility
             y = y & r;
 
             return (ulong)y;
+        }
+    }
+
+    // Opgave 4. Implementering af 4-universel hashfunktion
+    public class MultiplyModPrimeMersennePrimes : IHashing
+    {
+        private readonly List<BigInteger> a = new List<BigInteger>();
+        private readonly int q = 4;
+        private readonly int b = 89;
+
+        public MultiplyModPrimeMersennePrimes()
+        {
+            a.Add(BigInteger.Parse("522016596352186136429421401"));
+            a.Add(BigInteger.Parse("381620565771064524891220591"));
+            a.Add(BigInteger.Parse("98929617524125431387652801"));
+            a.Add(BigInteger.Parse("260232405640153757640670000"));
+        }
+
+        public ulong Hash(ulong x, int p)
+        {
+            BigInteger y = a[q - 1];
+
+            for (int i = q - 2; i >= 0; i--)
+            {
+                y = y * x + a[i];
+                y = (y & p) + (y >> b);
+            }
+            if (y >= p) y -= p;
+            return (ulong)y;
+        }
+    }
+
+    // Opgave 5. Implementering af hashfunktioner til Count-Sketch
+    public class ModHash : IHashing
+    {
+
+        private readonly IHashing g;
+        private readonly int t;
+        public ModHash(IHashing g, int t)
+        {
+            this.g = g;
+            this.t = t;
+        }
+
+        public ulong Hash(ulong x, int l)
+        {
+            return g.Hash(x, t) & (1UL << l);
         }
     }
 }
