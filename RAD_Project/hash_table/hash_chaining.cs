@@ -1,4 +1,5 @@
 /* 
+Opgave 2. Implementering af hashtabel med chaining.
 We will again simplify the problem and assume that the size of the hash table is a power of two. 
 The goal is to implement a hash table using chaining, which is parameterized by a 
 hash function, h, and a positive integer l, where the image quantity for h is [2^l]. 
@@ -30,10 +31,9 @@ namespace Hashing
     }
     public class HashTable_chaining
     {
-
-        private int l; // Size of the hash table
-        private List<StreamPair>[] buckets; // Array of linked lists to store key-value pairs
-        private IHashing hashFunction; // Delegate for the hash function
+        private int l; // size of the hash table
+        private List<StreamPair>[] buckets; // array of linked lists to store key-value pairs
+        private IHashing hashFunction; // delegate for the hash function
 
         public HashTable_chaining(int l, IHashing hashFunction)
         {
@@ -42,7 +42,7 @@ namespace Hashing
             this.buckets = new List<StreamPair>[len];
             this.hashFunction = hashFunction;
 
-            // initialize the array
+            // Initialize the array
             for (ulong i = 0; i < len; i++)
             {
                 buckets[i] = new List<StreamPair>();
@@ -62,14 +62,14 @@ namespace Hashing
                     }
                 }
             }
-            return 0; // Key not found, return 0
+            return 0; // key not found, return 0
         }
 
         public void Set(ulong x, long value)
         {
             ulong index = CalculateIndex(x);
 
-            // iterate through the list using foreach instead
+            // Iterate through the list using foreach instead
             foreach (var pair in buckets[index])
             {
                 if (pair.x == x)
@@ -92,17 +92,16 @@ namespace Hashing
             {
                 if (pair.x == x)
                 {
-                    pair.val += delta; // Calculate updated value
+                    pair.val += delta; // calculate updated value
                     return;
                 }
             }
-            // Key not found, add it to the list
-            buckets[index].Add(new StreamPair(x, delta));
+            buckets[index].Add(new StreamPair(x, delta)); // key not found, add it to the list
         }
 
         private ulong CalculateIndex(ulong x)
         {
-            return hashFunction.Hash(x, l); // Calculate the index using the provided hash function
+            return hashFunction.Hash(x, l); // calculate the index using the provided hash function
         }
 
         public IEnumerable<long> GetValues()
@@ -116,9 +115,6 @@ namespace Hashing
             }
         }
 
-
     }
-
-
 
 }

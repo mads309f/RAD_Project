@@ -28,12 +28,7 @@ namespace Utility
     {
         private readonly BigInteger a = BigInteger.Parse("556660067608673510658973370");
         private readonly BigInteger b = BigInteger.Parse("22714816827324544532436935");
-        private readonly ulong p = BigInteger.Pow(2, 89) - 1;
-
-        public MultiplyModPrime()
-        {
-            p = (1UL << 89) - 1UL;
-        }
+        private readonly ulong p = (1UL << 89) - 1UL;
 
         public ulong Hash(ulong x, int l)
         {
@@ -45,7 +40,7 @@ namespace Utility
                 hvor a og b er uafhængige og uniformt tilfældige i [p] = {0, 1, ..., p−1}.x
             */
 
-            BigInteger y = ((a * x + b) & p) + ((a * x + b) >> 89);  // (a * x + b) mod p
+            ulong y = (ulong)(((a * x + b) & p) + ((a * x + b) >> 89));  // (a * x + b) mod p
             if (y >= p) y -= p;
 
             ulong r = (1UL << l) - 1UL; // 2^l - 1

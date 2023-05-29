@@ -1,10 +1,17 @@
+
+
 namespace RAD_Project_Test
 {
     public class TestCountSketch
     {
+
+        private int t = 21;
+        private int n = 1000000;
+
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]
@@ -12,6 +19,10 @@ namespace RAD_Project_Test
 
         public void TestCount()
         {
+            CountSketch cs = new CountSketch(t);
+            var stream = Utility.Stream.CreateStream(n, l);
+
+            int actual = Algorithms.SquaredSum(stream, new MultiplyShift(), n, l);
         }
     }
 }

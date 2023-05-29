@@ -1,11 +1,12 @@
 using Utility;
 using System.Numerics;
+using System;
 
 // Opgave 4. Implementering af 4-universel hashfunktion
 public class CountSketch
 {
     private const int b = 89;
-    private readonly int p;
+    private readonly int p = (1 << b) - 1;
     private const int q = 4;
     private readonly BigInteger[] a = {
         BigInteger.Parse("522016596352186136429421401"),
@@ -16,10 +17,12 @@ public class CountSketch
 
     public CountSketch(int t)
     {
-        p = (1 << b) - 1;
+        // generate random 89 bit number
+        Random rnd = new Random();
+
     }
 
-    public ulong g(ulong x)
+    private BigInteger g(ulong x)
     {
         /*
             Hashfunktionen g : U → [p], parametriseret af a_0, a_1, a_2, a_3, og defineret som 
@@ -34,11 +37,11 @@ public class CountSketch
             y = (y & p) + (y >> b);
         }
         if (y >= p) y -= p;
-        return (ulong)y;
+        return y;
     }
 
     // Opgave 5. Implementering af hashfunktioner til Count-Sketch
-    public (ulong, int) Hash(ulong x, int t)
+    private (ulong, int) Hash(ulong x, int t)
     {
         /*
             Lad m = 2^t ≤ 2^64 være en toerpotens.
@@ -50,8 +53,8 @@ public class CountSketch
             mindst betydende bits af g(x) og s(x) er enten −1 eller 1 afhængigt af værdien af den mest betydende bit i g(x).
             Til implementeringsdetaljerne skal Algoritme 2 i noterne om second moment estimation benyttes.
         */
-        ulong gx = g(x);
-        ulong hx = gx & ((1UL << t) - 1UL);
+        BigInteger gx = g(x);
+        ulong hx = (ulong)(gx & ((1UL << t) - 1UL));
         int bx = (int)(gx >> (b - 1));
         int sx = 1 - 2 * bx;
 
