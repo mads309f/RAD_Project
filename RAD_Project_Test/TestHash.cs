@@ -12,6 +12,7 @@ namespace RAD_Project_Test
         }
 
         [Test]
+
         public void TestCalculateSum()
         {
             List<Tuple<ulong, int>> stream = new List<Tuple<ulong, int>>();

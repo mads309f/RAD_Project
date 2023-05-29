@@ -26,5 +26,15 @@ namespace Algorithms
 
             return squaredSum;
         }
+
+        // measure time for calculating the squared sum
+        public static void MeasureTime()
+        {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            CalculateSquaredSum(stream, hashFunction, n, l);
+            watch.Stop();
+            var elapsedMs = watch.ElapsedMilliseconds;
+            Console.WriteLine("Time elapsed: " + elapsedMs + "ms");
+        }
     }
 }
