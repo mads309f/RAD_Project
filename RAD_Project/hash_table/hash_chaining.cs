@@ -21,8 +21,8 @@ namespace Hashing
     public class StreamPair
     {
         public ulong x;
-        public int val;
-        public StreamPair(ulong x, int val)
+        public long val;
+        public StreamPair(ulong x, long val)
         {
             this.x = x;
             this.val = val;
@@ -38,17 +38,18 @@ namespace Hashing
         public HashTable_chaining(int l, IHashing hashFunction)
         {
             this.l = l;
-            this.buckets = new List<StreamPair>[(1UL << l)];
+            ulong len = (1UL << l);
+            this.buckets = new List<StreamPair>[len];
             this.hashFunction = hashFunction;
 
             // initialize the array
-            for (int i = 0; i < l; i++)
+            for (ulong i = 0; i < len; i++)
             {
                 buckets[i] = new List<StreamPair>();
             }
         }
 
-        public int Get(ulong x)
+        public long Get(ulong x)
         {
             ulong index = CalculateIndex(x);
             if (buckets[index] != null)
@@ -64,7 +65,7 @@ namespace Hashing
             return 0; // Key not found, return 0
         }
 
-        public void Set(ulong x, int value)
+        public void Set(ulong x, long value)
         {
             ulong index = CalculateIndex(x);
 
@@ -101,10 +102,10 @@ namespace Hashing
 
         private ulong CalculateIndex(ulong x)
         {
-            return hashFunction.Hash(x); // Calculate the index using the provided hash function
+            return hashFunction.Hash(x, l); // Calculate the index using the provided hash function
         }
 
-        public IEnumerable<int> GetValues()
+        public IEnumerable<long> GetValues()
         {
             for (int i = 0; i < buckets.Length; i++)
             {

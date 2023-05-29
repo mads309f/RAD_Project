@@ -41,11 +41,10 @@ namespace Utility
                 hvor a og b er uafhængige og uniformt tilfældige i [p] = {0, 1, ..., p−1}.x
             */
 
-
             BigInteger y = ((a * x + b) & p) + ((a * x + b) >> 89);  // (a * x + b) mod p
             if (y >= p) y -= p;
 
-            BigInteger r = BigInteger.Pow(2, l) - 1; // 2^l - 1
+            ulong r = (1UL << l) - 1UL; // 2^l - 1
             y = y & r;
 
             return (ulong)y;
@@ -69,6 +68,11 @@ namespace Utility
 
         public ulong Hash(ulong x, int p)
         {
+            /*
+                Hashfunktionen g : U → [p], parametriseret af a_0, a_1, a_2, a_3, og defineret som 
+                g(x) = a_0 + a_1*x + a_2*x_2 + a_3*x_3 mod p.
+                Her er p = 2^89 −1, og a0, a1,a2 og a3 uafhængige og uniformt tilfældige i [p] = {0,...,p−1}.
+            */
             BigInteger y = a[q - 1];
 
             for (int i = q - 2; i >= 0; i--)
@@ -78,24 +82,6 @@ namespace Utility
             }
             if (y >= p) y -= p;
             return (ulong)y;
-        }
-    }
-
-    // Opgave 5. Implementering af hashfunktioner til Count-Sketch
-    public class ModHash : IHashing
-    {
-
-        private readonly IHashing g;
-        private readonly int t;
-        public ModHash(IHashing g, int t)
-        {
-            this.g = g;
-            this.t = t;
-        }
-
-        public ulong Hash(ulong x, int l)
-        {
-            return g.Hash(x, t) & (1UL << l);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Algorithms
 
             ulong squaredSum = 0;
             // Calculate the squared sum of the hash table
-            foreach (uint value in hashTable.GetValues())
+            foreach (ulong value in hashTable.GetValues())
             {
                 squaredSum += value * value;
             }
