@@ -3,7 +3,6 @@ using System.Numerics;
 // Opgave 1. Implementering af hashfunktioner
 namespace Utility
 {
-
     public interface IHashing
     {
         ulong Hash(ulong x, int l);
@@ -24,13 +23,18 @@ namespace Utility
         }
     }
 
+    // b: Multiply-mod-prime hashing
     public class MultiplyModPrime : IHashing
     {
         private readonly BigInteger a = BigInteger.Parse("556660067608673510658973370");
         private readonly BigInteger b = BigInteger.Parse("22714816827324544532436935");
-        private readonly BigInteger p = BigInteger.Pow(2, 89) - 1;
+        private readonly ulong p = BigInteger.Pow(2, 89) - 1;
 
-        // b: Multiply-mod-prime hashing
+        public MultiplyModPrime()
+        {
+            p = (1UL << 89) - 1UL;
+        }
+
         public ulong Hash(ulong x, int l)
         {
             /*

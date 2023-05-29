@@ -1,5 +1,6 @@
 using System.Diagnostics;
 
+// Opgave 1.c. Test af hashfunktioner
 namespace Utility
 {
     public class TestHashFunction

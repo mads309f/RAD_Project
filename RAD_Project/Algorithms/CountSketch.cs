@@ -14,7 +14,6 @@ public class CountSketch
         BigInteger.Parse("260232405640153757640670000")
     };
 
-
     public CountSketch(int t)
     {
         p = (1 << b) - 1;
@@ -48,8 +47,7 @@ public class CountSketch
             h(x) = g(x) mod m, og
             s(x) = 1 −2*floor(g(x)/2^(b−1)).
             Her er p = 2^b − 1 = 2^89 − 1, så b = 89. Med andre ord består h(x) af de log_2(m) = t
-            mindst betydende bits af g(x) og s(x) er enten −1 eller 1 afhængigt af værdien af den mest
-            betydende bit i g(x).
+            mindst betydende bits af g(x) og s(x) er enten −1 eller 1 afhængigt af værdien af den mest betydende bit i g(x).
             Til implementeringsdetaljerne skal Algoritme 2 i noterne om second moment estimation benyttes.
         */
         ulong gx = g(x);
@@ -64,7 +62,10 @@ public class CountSketch
     public ulong Apply(IEnumerable<Tuple<ulong, int>> stream, int t)
     {
         /*
-            Count-Sketch, der er parametriseret ved hashfunktioner h : U → [m] og s : U → {−1,1}, hvor m = 2^t er en toerpotens.
+            Count-Sketch, der er parametriseret ved hashfunktioner:
+            h : U → [m] og
+            s : U → {−1,1},
+            hvor m = 2^t er en toerpotens.
             Samt en funktion, der givet sketch C[0,...,m−1] udregner estimatet X = ∑_{y∈[m]} C[y]^2 for S.
         */
 

@@ -8,6 +8,10 @@ namespace Algorithms
     {
         public static ulong CalculateSquaredSum(IEnumerable<Tuple<ulong, int>> stream, IHashing hashFunction, int n, int l)
         {
+            /*
+                Funktion der givet en strøm af par (x_1,d_1),...,(x_n,d_n) beregner kvadratsummen S = ∑_{x∈U} s(x)2.
+                Hashtabellen implementeret i opgave 2 benyttes til at gemme værdierne for hvert x i strømmen.
+            */
 
             HashTable_chaining hashTable = new HashTable_chaining(l, hashFunction);
             foreach (var pair in stream)
