@@ -51,37 +51,4 @@ namespace Utility
         }
     }
 
-    // Opgave 4. Implementering af 4-universel hashfunktion
-    public class MultiplyModPrimeMersennePrimes : IHashing
-    {
-        private readonly List<BigInteger> a = new List<BigInteger>();
-        private readonly int q = 4;
-        private readonly int b = 89;
-
-        public MultiplyModPrimeMersennePrimes()
-        {
-            a.Add(BigInteger.Parse("522016596352186136429421401"));
-            a.Add(BigInteger.Parse("381620565771064524891220591"));
-            a.Add(BigInteger.Parse("98929617524125431387652801"));
-            a.Add(BigInteger.Parse("260232405640153757640670000"));
-        }
-
-        public ulong Hash(ulong x, int p)
-        {
-            /*
-                Hashfunktionen g : U → [p], parametriseret af a_0, a_1, a_2, a_3, og defineret som 
-                g(x) = a_0 + a_1*x + a_2*x_2 + a_3*x_3 mod p.
-                Her er p = 2^89 −1, og a0, a1,a2 og a3 uafhængige og uniformt tilfældige i [p] = {0,...,p−1}.
-            */
-            BigInteger y = a[q - 1];
-
-            for (int i = q - 2; i >= 0; i--)
-            {
-                y = y * x + a[i];
-                y = (y & p) + (y >> b);
-            }
-            if (y >= p) y -= p;
-            return (ulong)y;
-        }
-    }
 }
