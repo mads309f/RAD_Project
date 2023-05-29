@@ -1,30 +1,45 @@
 using Utility;
-
+using System.Numerics;
 
 // Opgave 4. Implementering af 4-universel hashfunktion
 public class CountSketch
 {
-    private readonly IHashing g;
-
-    private readonly int b = 89;
+    private const int b = 89;
     private readonly int p;
+    private const int q = 4;
     private readonly BigInteger[] a = {
         BigInteger.Parse("522016596352186136429421401"),
         BigInteger.Parse("381620565771064524891220591"),
         BigInteger.Parse("98929617524125431387652801"),
         BigInteger.Parse("260232405640153757640670000")
     };
-    private readonly int q = 4;
-    private readonly int b = 89;
-    public CountSketch(IHashing g)
+
+
+    public CountSketch(int t)
     {
-        this.g = g;
-        this.t = t;
+        p = (1 << b) - 1;
     }
-    public CountSketch() : this(new MultiplyModPrimeMersennePrimes()) { }
+
+    public ulong g(ulong x)
+    {
+        /*
+            Hashfunktionen g : U → [p], parametriseret af a_0, a_1, a_2, a_3, og defineret som 
+            g(x) = a_0 + a_1*x + a_2*x_2 + a_3*x_3 mod p.
+            Her er p = 2^89 −1, og a0, a1,a2 og a3 uafhængige og uniformt tilfældige i [p] = {0,...,p−1}.
+        */
+        BigInteger y = a[q - 1];
+
+        for (int i = q - 2; i >= 0; i--)
+        {
+            y = y * x + a[i];
+            y = (y & p) + (y >> b);
+        }
+        if (y >= p) y -= p;
+        return (ulong)y;
+    }
 
     // Opgave 5. Implementering af hashfunktioner til Count-Sketch
-    public (ulong, int) Hash(ulong x, int l)
+    public (ulong, int) Hash(ulong x, int t)
     {
         /*
             Lad m = 2^t ≤ 2^64 være en toerpotens.
@@ -37,8 +52,8 @@ public class CountSketch
             betydende bit i g(x).
             Til implementeringsdetaljerne skal Algoritme 2 i noterne om second moment estimation benyttes.
         */
-        ulong gx = g.Hash(x, t);
-        ulong hx = gx & ((1UL << l) - 1UL);
+        ulong gx = g(x);
+        ulong hx = gx & ((1UL << t) - 1UL);
         int bx = (int)(gx >> (b - 1));
         int sx = 1 - 2 * bx;
 
@@ -46,28 +61,33 @@ public class CountSketch
     }
 
     // Opgave 6. Implementering af Count-Sketch
-    private ulong BCS_Init(ulong e)
-    {
-
-        return 1;
-    }
-    private ulong BCS_Process(ulong x, ulong d)
-    {
-        return 1;
-    }
-
-    private ulong BCS_2nd_Moment()
-    {
-        return 1;
-    }
-    public ulong Apply(int t)
+    public ulong Apply(IEnumerable<Tuple<ulong, int>> stream, int t)
     {
         /*
             Count-Sketch, der er parametriseret ved hashfunktioner h : U → [m] og s : U → {−1,1}, hvor m = 2^t er en toerpotens.
             Samt en funktion, der givet sketch C[0,...,m−1] udregner estimatet X = ∑_{y∈[m]} C[y]^2 for S.
         */
-        ulong m = 1UL << t;
 
-        return 1;
+        // INIT
+        ulong m = 1UL << t;
+        long[] C = new long[m];
+
+        // PROCESS
+        foreach (var pair in stream)
+        {
+            ulong x = pair.Item1;
+            int d = pair.Item2;
+
+            (ulong hx, int sx) = Hash(x, t);
+            C[hx] += sx * d;
+        }
+
+        // 2ND MOMENT ESTIMATION
+        ulong F2 = 0;
+        foreach (ulong c in C)
+        {
+            F2 += c * c;
+        }
+        return F2;
     }
 }
