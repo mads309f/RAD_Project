@@ -6,20 +6,22 @@ using System;
 public class CountSketch
 {
     private const int b = 89;
-    private readonly int p = (1 << b) - 1;
+    private readonly BigInteger p = (new BigInteger(1) << b) - 1;
     private const int q = 4;
-    private readonly BigInteger[] a = {
-        BigInteger.Parse("522016596352186136429421401"),
-        BigInteger.Parse("381620565771064524891220591"),
-        BigInteger.Parse("98929617524125431387652801"),
-        BigInteger.Parse("260232405640153757640670000")
-    };
+    private BigInteger[] a = new BigInteger[q];
 
-    public CountSketch(int t)
+    public CountSketch()
+    {
+        
+    }
+
+    private void ChooseHashUniform()
     {
         // generate random 89 bit number
-        Random rnd = new Random();
-
+        for (int i = 0; i < q; i++)
+        {
+            a[i] = RandomBigInt.Next(b);
+        }
     }
 
     private BigInteger g(ulong x)
@@ -73,6 +75,7 @@ public class CountSketch
         */
 
         // INIT
+        ChooseHashUniform();
         ulong m = 1UL << t;
         long[] C = new long[m];
 
