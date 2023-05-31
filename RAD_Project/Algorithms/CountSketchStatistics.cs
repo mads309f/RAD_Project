@@ -15,7 +15,7 @@ namespace Algorithms
         private static int n = 1 << 21;
 
         // Determines m = 2^t, where m is the size of the hash table in count sketch
-        private static int[] all_t = {11}; //{ 10, 25, 50 }; // max is 30
+        private static int[] all_t = { 10, 12, 15 }; // max is 30
 
         private static int test_count = 100;
 
