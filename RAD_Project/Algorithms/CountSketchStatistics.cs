@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
@@ -15,8 +16,8 @@ namespace Algorithms
         private static int n = 1 << 21;
 
         // Determines m = 2^t, where m is the size of the hash table in count sketch
-        private static int[] all_t = { 10, 12, 15 }; // max is 30
-
+        private static int[] all_t = { 10, 12, 15 }; // max is 30 on my computer
+        // 2097216 ved 28 på 3788 ms
         private static int test_count = 100;
 
 
@@ -25,20 +26,24 @@ namespace Algorithms
             
             CountSketch cs = new CountSketch();
             var stream = Utility.Stream.CreateStream(n, l);
+            ulong actual = Algorithms.SquaredSum.CalculateSquaredSum(stream, new MultiplyShift(), n, l);
 
             foreach (int t in all_t)
             {
                 Console.WriteLine($"Number of estimates: {test_count}");
 
                 Console.WriteLine("Running Count Sketch test");
-                ulong actual = Algorithms.SquaredSum.CalculateSquaredSum(stream, new MultiplyShift(), n, l);
-                Console.WriteLine($"Actual squared sum: {actual}");
 
                 ulong[] estimates = new ulong[test_count];
                 for (int i = 0; i < estimates.Length; i++)
                 {
-                    Console.WriteLine($"Estimate {i + 1}");
+                    Stopwatch stopwatch = new Stopwatch();
+                    stopwatch.Start();
+
                     estimates[i] = cs.Apply(stream, t);
+
+                    stopwatch.Stop();
+                    Console.WriteLine($"Estimate {i + 1} calculated to {estimates[i]} in {stopwatch.ElapsedMilliseconds} ms");
                 }
 
                 // calculate median of group the 9 groups

@@ -39,8 +39,8 @@ namespace Utility
                 Hashfunktionen skal være: h(x) = ((a*x + b) mod p) mod 2^l
                 hvor a og b er uafhængige og uniformt tilfældige i [p] = {0, 1, ..., p−1}.x
             */
-
-            BigInteger y = ((a * x + b) & p) + ((a * x + b) >> 89);  // (a * x + b) mod p
+            BigInteger num = a * x + b;
+            BigInteger y = (num & p) + (num >> 89);  // (a * x + b) mod p
             if (y >= p) y -= p;
 
             ulong r = (1UL << l) - 1UL; // 2^l - 1

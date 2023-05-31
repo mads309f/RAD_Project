@@ -95,10 +95,11 @@ namespace RAD_Project_Test
         // [TestCase(20)]
         // [TestCase(10)]
 
-        [TestCase(2)]
-        // [TestCase(15)]
-        // [TestCase(20)]
-        // [TestCase(24)]
+
+        [TestCase(10)]
+        [TestCase(15)]
+        [TestCase(20)]
+        [TestCase(21)]
 
 
 
@@ -108,7 +109,7 @@ namespace RAD_Project_Test
 
 
             // uint one = 1;
-            int n = 1 << 20;
+            int n = 1 << 24;
 
             IEnumerable<Tuple<ulong, int>> stream = Utility.Stream.CreateStream(n, l);
 
@@ -132,11 +133,11 @@ namespace RAD_Project_Test
         // [TestCase(20)]
         // [TestCase(10)]
 
+        [TestCase(10)]
+        [TestCase(15)]
         [TestCase(20)]
         [TestCase(21)]
-        [TestCase(22)]
-        [TestCase(23)]
-        [TestCase(24)]
+ 
         // [TestCase(15)]
         // [TestCase(20)]
         // [TestCase(24)]
@@ -146,7 +147,7 @@ namespace RAD_Project_Test
         public void TestCalculateSumMultiply(int l)
         {
             // uint one = 1;
-            int n = 1 << l;
+            int n = 1 << 24;
 
             IEnumerable<Tuple<ulong, int>> stream = Utility.Stream.CreateStream(n, l);
 
