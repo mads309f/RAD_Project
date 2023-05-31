@@ -4,9 +4,11 @@ namespace RAD_Project_Test
 {
     public class TestCountSketch
     {
+        private int l = 24;
+        private int n = 1 << 24;
 
-        private int[] all_t = { 10, 15, 20 };
-        private int n = 1 << 20;
+        private int[] all_t = { 10, 25, 50 };
+        
 
         [SetUp]
         public void Setup()
@@ -19,12 +21,11 @@ namespace RAD_Project_Test
 
         public void TestCount(int test_count)
         {
+            CountSketch cs = new CountSketch();
+            var stream = Utility.Stream.CreateStream(n, l);
             foreach (int t in all_t)
             {
                 Console.WriteLine($"Number of estimates: {test_count}");
-
-                CountSketch cs = new CountSketch();
-                var stream = Utility.Stream.CreateStream(n, t);
 
                 Console.WriteLine("Running Count Sketch test");
                 ulong actual = Algorithms.SquaredSum.CalculateSquaredSum(stream, new MultiplyShift(), n, t);
@@ -33,6 +34,7 @@ namespace RAD_Project_Test
                 ulong[] estimates = new ulong[test_count];
                 for (int i = 0; i < estimates.Length; i++)
                 {
+                    Console.WriteLine($"Estimate {i + 1}");
                     estimates[i] = cs.Apply(stream, t);
                 }
 
