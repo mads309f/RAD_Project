@@ -28,7 +28,7 @@ namespace RAD_Project_Test
             long result = hashTable.Get(key); // should return the set value = 123
 
             // Assert
-            Assert.AreEqual(value, result);
+            Assert.That(result, Is.EqualTo(value));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace RAD_Project_Test
             long result = hashTable.Get(key); // should return 0, since the key does not exist
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.That(result, Is.EqualTo(0));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace RAD_Project_Test
             long result = hashTable.Get(key); // get the updated value
 
             // Assert
-            Assert.AreEqual(updatedValue, result); // should return the updated value = 456
+            Assert.That(result, Is.EqualTo(updatedValue)); // should return the updated value = 456
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace RAD_Project_Test
             long result = hashTable.Get(key); // get the updated value
 
             // Assert
-            Assert.AreEqual(initialValue + delta, result); // should return the updated value = 133
+            Assert.That(result, Is.EqualTo(initialValue + delta)); // should return the updated value = 133
         }
 
         [Test]
@@ -92,7 +92,7 @@ namespace RAD_Project_Test
             long result = hashTable.Get(key); // get the value
 
             // Assert
-            Assert.AreEqual(delta, result); // should return the value = 10
+            Assert.That(result, Is.EqualTo(delta)); // should return the value = 10
         }
     }
 }

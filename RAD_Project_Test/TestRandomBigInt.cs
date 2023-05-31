@@ -30,7 +30,7 @@ namespace RAD_Project_Test
             {
                 // check all values are "bits" bits long
                 int num = (int)(l[i] >> (bits - 1));
-                Assert.AreEqual(num >> 1, 0);
+                Assert.That(num >> 1, Is.EqualTo(0));
 
                 if (l[i] >> (bits - 1) == 1)
                 {
@@ -39,7 +39,7 @@ namespace RAD_Project_Test
 
                 for (int j = i + 1; j < test_size; j++)
                 {
-                    Assert.AreNotEqual(l[i], l[j]);
+                    Assert.That(l[i], Is.Not.EqualTo(l[j]));
                 }
             }
             Assert.IsTrue(is_correct_len);
