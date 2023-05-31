@@ -1,9 +1,8 @@
 using NUnit.Framework;
 using Hashing;
 
-namespace Hashing.Tests
+namespace RAD_Project_Test
 {
-    [TestFixture]
     public class TestHashTableChaining
     {
         private IHashing hashFunction;
@@ -18,7 +17,7 @@ namespace Hashing.Tests
         }
 
         [Test]
-        public void Get_ExistingKey_ReturnsValue()
+        public void Get_ExistingKey()
         {
             // Arrange
             ulong key = 42;
@@ -26,89 +25,74 @@ namespace Hashing.Tests
             hashTable.Set(key, value);
 
             // Act
-            long result = hashTable.Get(key);
+            long result = hashTable.Get(key); // should return the set value = 123
 
             // Assert
             Assert.AreEqual(value, result);
         }
 
         [Test]
-        public void Get_NonExistingKey_ReturnsZero()
+        public void Get_NonExistingKey()
         {
             // Arrange
             ulong key = 42;
 
             // Act
-            long result = hashTable.Get(key);
+            long result = hashTable.Get(key); // should return 0, since the key does not exist
 
             // Assert
             Assert.AreEqual(0, result);
         }
 
         [Test]
-        public void Set_NewKey_AddsKeyValue()
-        {
-            // Arrange
-            ulong key = 42;
-            long value = 123;
-
-            // Act
-            hashTable.Set(key, value);
-            long result = hashTable.Get(key);
-
-            // Assert
-            Assert.AreEqual(value, result);
-        }
-
-        [Test]
-        public void Set_ExistingKey_UpdatesValue()
+        public void Set_ExistingKey()
         {
             // Arrange
             ulong key = 42;
             long initialValue = 123;
             long updatedValue = 456;
 
-            hashTable.Set(key, initialValue);
+            hashTable.Set(key, initialValue); // set the initial value
 
             // Act
-            hashTable.Set(key, updatedValue);
-            long result = hashTable.Get(key);
+            hashTable.Set(key, updatedValue); // update the value
+            long result = hashTable.Get(key); // get the updated value
 
             // Assert
-            Assert.AreEqual(updatedValue, result);
+            Assert.AreEqual(updatedValue, result); // should return the updated value = 456
         }
 
         [Test]
-        public void Increment_ExistingKey_IncrementsValue()
+        public void Increment_ExistingKey()
         {
             // Arrange
             ulong key = 42;
             long initialValue = 123;
             int delta = 10;
 
-            hashTable.Set(key, initialValue);
+            hashTable.Set(key, initialValue); // set the initial value
 
             // Act
-            hashTable.Increment(key, delta);
-            long result = hashTable.Get(key);
+            hashTable.Increment(key, delta); // increment the value
+            long result = hashTable.Get(key); // get the updated value
 
             // Assert
-            Assert.AreEqual(initialValue + delta, result);
+            Assert.AreEqual(initialValue + delta, result); // should return the updated value = 133
         }
 
         [Test]
-        public void Increment_NonExistingKey_AddsKeyValue()
+        public void Increment_NonExistingKey()
         {
             // Arrange
             ulong key = 42;
             int delta = 10;
 
             // Act
-            hashTable.Increment(key, delta);
-            long result = hashTable.Get(key);
+            hashTable.Increment(key, delta); // the key does not exist, so therefore be created and set to delta
+            long result = hashTable.Get(key); // get the value
 
             // Assert
-            Assert.AreEqual(delta, result);
+            Assert.AreEqual(delta, result); // should return the value = 10
         }
     }
 }
