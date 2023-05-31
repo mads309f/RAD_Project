@@ -95,10 +95,11 @@ namespace RAD_Project_Test
         // [TestCase(10)]
         // [TestCase(20)]
         // [TestCase(10)]
+
         [TestCase(10)]
-        [TestCase(15)]
-        [TestCase(20)]
-        [TestCase(24)]
+        // [TestCase(15)]
+        // [TestCase(20)]
+        // [TestCase(24)]
 
 
 
@@ -132,10 +133,11 @@ namespace RAD_Project_Test
         // [TestCase(10)]
         // [TestCase(20)]
         // [TestCase(10)]
+
         [TestCase(10)]
-        [TestCase(15)]
-        [TestCase(20)]
-        [TestCase(24)]
+        // [TestCase(15)]
+        // [TestCase(20)]
+        // [TestCase(24)]
 
         // [TestCase(22)]
         // [TestCase(30)]

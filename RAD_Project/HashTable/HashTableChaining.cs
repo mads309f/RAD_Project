@@ -29,13 +29,13 @@ namespace Hashing
             this.val = val;
         }
     }
-    public class HashTable_chaining
+    public class HashTableChaining
     {
         private int l; // size of the hash table
         private List<StreamPair>[] buckets; // array of linked lists to store key-value pairs
         private IHashing hashFunction; // delegate for the hash function
 
-        public HashTable_chaining(int l, IHashing hashFunction)
+        public HashTableChaining(int l, IHashing hashFunction)
         {
             this.l = l;
             ulong len = (1UL << l);

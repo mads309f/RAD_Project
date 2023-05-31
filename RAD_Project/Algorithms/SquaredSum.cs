@@ -13,7 +13,7 @@ namespace Algorithms
                 Hashtabellen implementeret i opgave 2 benyttes til at gemme værdierne for hvert x i strømmen.
             */
 
-            HashTable_chaining hashTable = new HashTable_chaining(l, hashFunction);
+            HashTableChaining hashTable = new HashTableChaining(l, hashFunction);
             foreach (var pair in stream)
             {
                 ulong x = pair.Item1;
