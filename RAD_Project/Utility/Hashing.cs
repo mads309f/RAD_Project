@@ -50,4 +50,15 @@ namespace Utility
         }
     }
 
+    // Simpel hashfunktion til test
+    public class SimpleHashing : IHashing
+    {
+        public ulong Hash(ulong x, int l)
+        {
+            // Simple hash function implementation
+            // Calculate the index using bitwise AND operation with the size of the hash table minus 1 (assuming the size is a power of two)
+            return x & ((1UL << l) - 1);
+        }
+    }
+
 }
