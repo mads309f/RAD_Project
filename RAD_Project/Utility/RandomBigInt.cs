@@ -6,7 +6,7 @@ namespace Utility
 {
     public class RandomBigInt
     {
-        private static readonly Random rnd = new Random(101);
+        private static readonly Random rnd = new Random(103);
 
         public static BigInteger Next(int bitLength)
         {

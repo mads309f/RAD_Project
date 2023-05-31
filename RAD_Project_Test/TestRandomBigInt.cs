@@ -14,15 +14,13 @@ namespace RAD_Project_Test
 
         public void TestBigInt()
         {
-            int test_size = 10;
+            int test_size = 100;
             int bits = 89;
             BigInteger[] l = new BigInteger[test_size];
 
             for (int i = 0; i < test_size; i++)
             {
                 BigInteger x = RandomBigInt.Next(bits);
-                Console.WriteLine(x);
-
                 l[i] = x;
             }
 
@@ -31,9 +29,8 @@ namespace RAD_Project_Test
             for (int i = 0; i < test_size; i++)
             {
                 // check all values are "bits" bits long
-                BigInteger num = (l[i] >> (bits - 1));
-                Console.WriteLine(num);
-                Assert.AreEqual(num >> 1, new BigInteger(0));
+                int num = (int)(l[i] >> (bits - 1));
+                Assert.AreEqual(num >> 1, 0);
 
                 if (l[i] >> (bits - 1) == 1)
                 {
