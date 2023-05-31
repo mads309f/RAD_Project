@@ -55,7 +55,7 @@ namespace Utility
     {
         public ulong Hash(ulong x, int l)
         {
-            // Simple hash function implementation
+            // Simple hash function: h(x) = x mod 2^l
             // Calculate the index using bitwise AND operation with the size of the hash table minus 1 (assuming the size is a power of two)
             return x & ((1UL << l) - 1);
         }
