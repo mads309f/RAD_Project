@@ -12,7 +12,7 @@ namespace Rad_Project
 
         static void Main(string[] args)
         {
-
+            Algorithms.CountSketchStatistics.GetStatistics();
         }
 
 
