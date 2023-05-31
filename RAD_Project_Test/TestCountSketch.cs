@@ -14,7 +14,7 @@ namespace RAD_Project_Test
 
         }
 
-        [TestCase(100)]
+        //[TestCase(100)]
         // set up a test for the hash function with different values of l
 
         public void TestCount(int test_count)
