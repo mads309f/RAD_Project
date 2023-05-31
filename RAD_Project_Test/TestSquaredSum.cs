@@ -37,7 +37,7 @@ namespace RAD_Project_Test
             int l = 2;
             ulong result = SquaredSum.CalculateSquaredSum(stream, new MultiplyShift(), stream.Count, l);
 
-            Assert.AreEqual(1962, result);
+            Assert.That(result, Is.EqualTo(1962));
 
             // Call CalculateSum() method or perform assertions
             // based on your testing requirements
@@ -59,7 +59,7 @@ namespace RAD_Project_Test
 
             ulong actualSum = 384306618446643200;
 
-            Assert.AreEqual(actualSum, result2);
+            Assert.That(result2, Is.EqualTo(actualSum));
 
 
             // Call CalculateSquaredSum() method or perform assertions

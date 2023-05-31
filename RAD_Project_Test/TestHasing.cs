@@ -35,7 +35,7 @@ namespace RAD_Project_Test
             ulong result = multiplyShift.Hash(x, l);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace RAD_Project_Test
             ulong result = multiplyModPrime.Hash(x, l);
 
             // Assert
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
     }
 }
