@@ -90,7 +90,6 @@ namespace RAD_Project_Test
         //     Assert.AreEqual(actualSum, result2);
         // }
 
-        [Test]
         // set up a test for the hash function with different values of l
         // [TestCase(10)]
         // [TestCase(20)]
@@ -128,7 +127,6 @@ namespace RAD_Project_Test
 
         }
 
-        [Test]
         // set up a test for the hash function with different values of l
         // [TestCase(10)]
         // [TestCase(20)]
