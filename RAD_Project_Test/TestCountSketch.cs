@@ -95,11 +95,10 @@ namespace RAD_Project_Test
                 p1:=pointplot(points, color=blue, symbol=solidcircle, symbolsize=10):
                 p2:=plot({actual}, x=1..100, color=red):
                 p3:=plot({expectation.ToString(CultureInfo.InvariantCulture)}, x=1..100, color=green):
-                display(p1, p2, p3, view=[1..100, {estimates[0]}..{estimates[estimates.Length - 1]}], title="Count Sketch", labels=["Estimate", "Squared sum"])
-
+                display(p1, p2, p3, view=[1..100, {estimates[0]}..{estimates[estimates.Length - 1]}], title="Count Sketch", labels=["Estimate", "Squared sum"]);
                 p4:= pointplot([{String.Join(",", medianPoints)}], color=blue, symbol=solidcircle, symbolsize=10):
                 p5:=plot({actual}, x=1..9, color=red):
-                display(p4,p5, view=[1..9, {estimates[0]}..{estimates[estimates.Length - 1]}], title="Count Sketch", labels=["Estimate", "Squared sum"])
+                display(p4,p5, view=[1..9, {estimates[0]}..{estimates[estimates.Length - 1]}], title="Count Sketch", labels=["Estimate", "Squared sum"]);
                 """);
         }
     }
