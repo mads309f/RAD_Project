@@ -6,12 +6,10 @@ namespace RAD_Project_Test
         [SetUp]
         public void Setup()
         {
-
         }
 
         [Test]
         // set up a test for the hash function with different values of l
-
         public void TestBigInt()
         {
             int test_size = 100;

@@ -12,7 +12,6 @@ public class CountSketch
 
     public CountSketch()
     {
-        
     }
 
     private void ChooseHashUniform()
@@ -73,23 +72,21 @@ public class CountSketch
             hvor m = 2^t er en toerpotens.
             Samt en funktion, der givet sketch C[0,...,m−1] udregner estimatet X = ∑_{y∈[m]} C[y]^2 for S.
         */
-
-        // INIT
+        // Init
         ChooseHashUniform();
         ulong m = 1UL << t;
         long[] C = new long[m];
 
-        // PROCESS
+        // Process stream
         foreach (var pair in stream)
         {
             ulong x = pair.Item1;
             int d = pair.Item2;
-
             (ulong hx, int sx) = Hash(x, t);
             C[hx] += sx * d;
         }
 
-        // 2ND MOMENT ESTIMATION
+        // 2nd moment estimation
         ulong F2 = 0;
         foreach (ulong c in C)
         {

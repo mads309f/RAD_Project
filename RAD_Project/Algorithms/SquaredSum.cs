@@ -12,7 +12,6 @@ namespace Algorithms
                 Funktion der givet en strøm af par (x_1,d_1),...,(x_n,d_n) beregner kvadratsummen S = ∑_{x∈U} s(x)2.
                 Hashtabellen implementeret i opgave 2 benyttes til at gemme værdierne for hvert x i strømmen.
             */
-
             HashTableChaining hashTable = new HashTableChaining(l, hashFunction);
             foreach (var pair in stream)
             {
@@ -27,7 +26,6 @@ namespace Algorithms
             {
                 squaredSum += value * value;
             }
-
             return squaredSum;
         }
 

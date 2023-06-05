@@ -9,11 +9,8 @@ namespace Algorithms
 {
     public class CountSketchStatistics
     {
-        // l is the size of the hash table
-        private static int l = 21;
-
-        // n is the size of the stream
-        private static int n = 1 << 21;
+        private static int l = 21; // l is the size of the hash table
+        private static int n = 1 << 21; // n is the size of the stream
 
         // Determines m = 2^t, where m is the size of the hash table in count sketch
         private static int[] all_t = { 10, 12, 15 }; // max is 30 on my computer
@@ -23,7 +20,7 @@ namespace Algorithms
 
         public static void GetStatistics()
         {
-            
+
             CountSketch cs = new CountSketch();
             var stream = Utility.Stream.CreateStream(n, l);
             ulong actual = Algorithms.SquaredSum.CalculateSquaredSum(stream, new MultiplyShift(), n, l);
@@ -31,17 +28,13 @@ namespace Algorithms
             foreach (int t in all_t)
             {
                 Console.WriteLine($"Number of estimates: {test_count}");
-
                 Console.WriteLine("Running Count Sketch test");
-
                 ulong[] estimates = new ulong[test_count];
                 for (int i = 0; i < estimates.Length; i++)
                 {
                     Stopwatch stopwatch = new Stopwatch();
                     stopwatch.Start();
-
                     estimates[i] = cs.Apply(stream, t);
-
                     stopwatch.Stop();
                     Console.WriteLine($"Estimate {i + 1} calculated to {estimates[i]} in {stopwatch.ElapsedMilliseconds} ms");
                 }
@@ -100,7 +93,7 @@ namespace Algorithms
                 // print maple code:
                 Console.WriteLine($"""
 
-                    Plot estimates in maple
+                    Plot estimates in maple:
 
                     with(plots):
                     points := [{String.Join(",", points)}]:
@@ -114,5 +107,7 @@ namespace Algorithms
                     """);
             }
         }
+
     }
+
 }

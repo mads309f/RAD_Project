@@ -79,7 +79,6 @@ namespace Hashing
                     return;
                 }
             }
-
             // Key not found, add it to the list
             buckets[index].Add(new StreamPair(x, value));
         }
@@ -87,6 +86,7 @@ namespace Hashing
         public void Increment(ulong x, int delta)
         {
             ulong index = CalculateIndex(x);
+
             // Check if key already exists in the list
             foreach (var pair in buckets[index])
             {
