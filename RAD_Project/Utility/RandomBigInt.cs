@@ -1,7 +1,6 @@
 using System;
 using System.Numerics;
 
-
 namespace Utility
 {
     public class RandomBigInt

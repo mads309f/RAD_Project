@@ -1,10 +1,3 @@
-// make a test class for SquaredSum
-
-using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using NUnit.Framework;
-
 namespace RAD_Project_Test
 {
     public class TestSquaredSum

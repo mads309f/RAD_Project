@@ -1,5 +1,3 @@
-
-
 namespace RAD_Project_Test
 {
     public class TestCountSketch

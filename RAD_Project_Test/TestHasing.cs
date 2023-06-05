@@ -1,6 +1,3 @@
-using NUnit.Framework;
-using Hashing;
-
 namespace RAD_Project_Test
 {
     public class TestHashing

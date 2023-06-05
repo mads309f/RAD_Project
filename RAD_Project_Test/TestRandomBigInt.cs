@@ -1,4 +1,3 @@
-
 namespace RAD_Project_Test
 {
     public class TestRandomBigInt
