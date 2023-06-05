@@ -98,16 +98,5 @@ namespace RAD_Project_Test
             Assert.Pass();
         }
 
-        public ulong calculateActualSum(int l)
-        {
-            ulong actualSum = 0;
-            int elements = 1 << l;
-            for (int i = 0; i < elements; i++)
-            {
-                actualSum += (ulong)i * (ulong)i;
-            }
-            return actualSum;
-        }
-
     }
 }
